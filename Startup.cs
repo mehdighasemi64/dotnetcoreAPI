@@ -33,8 +33,8 @@ namespace dotnetcoreAPI
         {
             app.UseCors(builder => builder.AllowAnyOrigin()
                                 .AllowAnyMethod()
-                                .AllowAnyHeader());
-
+                                .AllowAnyHeader()
+                                );
 
             if (env.IsDevelopment())
             {
@@ -46,6 +46,13 @@ namespace dotnetcoreAPI
             app.UseRouting();
 
             app.UseAuthorization();
+            
+
+            // app.UseDefaultFiles();
+
+            // app.UseStaticFiles();
+              app.UseFileServer(); //instead of 2 top line
+
 
             app.UseEndpoints(endpoints =>
             {

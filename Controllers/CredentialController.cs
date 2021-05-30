@@ -33,8 +33,12 @@ namespace dotnetcoreAPI.Controllers
                 db.SaveChanges();
                 try
                 {
-                    Email.SendEmail(fetchedUser.Email, "Password recovery for SOMANA", "please click the link below for changing your password :  <br/> <br/> <a href=" + "http://www.somana.ir/ResetPassword?username=" + fetchedUser.UserName + "&" + "token=" + token + "> ClickHere </a>");
+                    //Email.SendEmail(fetchedUser.Email, "Password recovery for SOMANA", "please click the link below for changing your password :  <br/> <br/> <a href=" + "http://www.somana.ir/ResetPassword?username=" + fetchedUser.UserName + "&" + "token=" + token + "> ClickHere </a>");
+                    Email.SendEmail(fetchedUser.Email, "Password recovery for SOMANA", "please click the link below for changing your password :  <br/> <br/> <a href=" + "http://shop.somana.ir/ResetPassword?username=" + fetchedUser.UserName + "&" + "token=" + token + "> ClickHere </a>");
+                    //Email.SendEmail(fetchedUser.Email, "Password recovery for SOMANA", "please click the link below for changing your password :  <br/> <br/> <a href=" + "http://localhost:4012/ResetPassword?username=" + fetchedUser.UserName + "&" + "token=" + token + "> ClickHere </a>");
+
                 }
+
                 catch (Exception e)
                 {
                     err = e.InnerException.InnerException.ToString();
@@ -46,15 +50,15 @@ namespace dotnetcoreAPI.Controllers
                 return Ok(user);
         }
 
-        [HttpPut("UpdateUser")]
-        public ActionResult UpdateUser(JObject fetchedUser)
+        [HttpPut("UpdateUser")]        
+        public ActionResult UpdateUser(ResetPassData fetchedUser)
         {
             var db = new soamanaDB();
             ResetCredential rc = new ResetCredential();
             dynamic json = fetchedUser;
-            string token = json.token;
-            string userName = json.userName;
-            string pass = json.password;
+            string token = json.Token;
+            string userName = json.UserName;
+            string pass = json.Password;
 
             rc = db.ResetCredentials.Where(x => x.TokenHash == token && x.TokenUsed == false).OrderByDescending(x => x.ExpirationDate).FirstOrDefault();
 
@@ -81,6 +85,7 @@ namespace dotnetcoreAPI.Controllers
             }
             return Ok("OK");
         }
+        
 
     }
 }

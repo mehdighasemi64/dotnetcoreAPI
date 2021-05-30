@@ -37,9 +37,7 @@ namespace dotnetcoreAPI.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                 //optionsBuilder.UseSqlServer("Server=.;Database=somana;Persist Security Info=True;Integrated Security=True");
-                optionsBuilder.UseSqlServer("Server= mssql.somana.ir;Database=somana;User Id =somana;Password = LWXmOuh5#0s;");
-
+                 optionsBuilder.UseSqlServer("Server=.;Database=somana;Persist Security Info=True;Integrated Security=True");
             }
         }
 
